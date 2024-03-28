@@ -1,0 +1,15 @@
+import requests
+import json
+
+cep = str(input("Digite o cep a ser concultado: ").replace("-"," "))
+res = requests.get(f"https://cep.awesomeapi.com.br/json/{cep}")
+endereço = res.json()
+
+if "code" in endereço:
+    if endereço["code"] == "invalid":
+        print("Por favor, digite um cep valido")
+
+    elif endereço["code"] == "not_foud": 
+        print(f"O cep {cep} que voce digitou, não foi encontrado")
+else:
+    print(f"O cep {endereço["cep"]} esta localizado na {endereço["adress"]} no bairro {endereço["district"]} em {endereço["city"]} - {endereço["state"]}")        
